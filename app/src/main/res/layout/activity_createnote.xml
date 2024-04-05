@@ -21,6 +21,7 @@
             android:textStyle="bold"
             android:textColor="@color/walnut_brown"
             android:hint="Enter your note title here"
+            android:fontFamily="sans-serif-condensed-medium"
             android:id="@+id/createtitleofnote"/>
 
     </androidx.appcompat.widget.Toolbar>
@@ -33,6 +34,7 @@
         android:gravity="top|left"
         android:hint="Enter note content here"
         android:layout_below="@+id/toolbarofcreatenote"
+        android:fontFamily="sans-serif-condensed-medium"
         android:padding="15dp"
         android:id="@+id/createcontentofnote">
 
