@@ -82,12 +82,12 @@ public class signup extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(getApplicationContext(),"Registeration successful",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Registration successful",Toast.LENGTH_SHORT).show();
                                 sendEmailVerification();
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(),"Registeration unsuccessful",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Registration unsuccessful",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
