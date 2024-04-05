@@ -2,6 +2,7 @@ package com.example.reflectify;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,7 +64,7 @@ public class editnoteactivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(v.getContext(), "Note edited",Toast.LENGTH_SHORT).show();
 
-                String newtitle = meditcontentofnote.getText().toString();
+                String newtitle = medittitleofnote.getText().toString();
                 String newcontent = meditcontentofnote.getText().toString();
 
                 if(newtitle.isEmpty() || newcontent.isEmpty())
@@ -97,5 +98,16 @@ public class editnoteactivity extends AppCompatActivity {
         meditcontentofnote.setText(notecontent);
         medittitleofnote.setText(notetitle);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            startActivity(new Intent(editnoteactivity.this, notesactivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -100,7 +100,7 @@ public class createnote extends AppCompatActivity {
 
         if(item.getItemId()==android.R.id.home)
         {
-            onBackPressed();
+            startActivity(new Intent(createnote.this, notesactivity.class));
         }
 
         return super.onOptionsItemSelected(item);
