@@ -27,7 +27,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/notetitle"
-                    android:padding="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
                     android:text="Hi kshitij"
                     android:textSize = "20sp"
                     android:textColor="@color/walnut_brown"
@@ -40,11 +43,23 @@
                     android:layout_height="match_parent"
                     android:id="@+id/menupopupbutton"
                     android:layout_weight="0"
-                    android:src="@drawable/vertical">
+                    android:src="@drawable/baseline_more_vert_24">
 
-                </ImageView>
+                    </ImageView>
+                </LinearLayout>
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notecontent"
+                    android:paddingBottom="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="this is your text"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"></TextView>
+
         </LinearLayout>
 
 
