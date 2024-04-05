@@ -53,12 +53,11 @@ public class notesactivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId())
+        if(item.getItemId()==R.id.logout)
         {
-            case R.id.Logout:
-                firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(notesactivity.this, MainActivity.class));
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(notesactivity.this, MainActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
