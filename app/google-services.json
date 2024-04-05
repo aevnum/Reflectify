@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1074956025762",
+    "project_id": "reflectify-1966c",
+    "storage_bucket": "reflectify-1966c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074956025762:android:2bf337251f0d793d69bcfb",
+        "android_client_info": {
+          "package_name": "com.example.reflectify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH3KU1gS_2z5L74mgdHvuHfhACwsmkMQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
