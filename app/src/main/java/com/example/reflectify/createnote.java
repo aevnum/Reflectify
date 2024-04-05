@@ -66,7 +66,7 @@ public class createnote extends AppCompatActivity {
                 String content = mcreatecontentofnote.getText().toString();
                 if(title.isEmpty() || content.isEmpty())
                 {
-                    Toast.makeText(getApplicationContext(),"Both fields are empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"One of the fields is empty",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
