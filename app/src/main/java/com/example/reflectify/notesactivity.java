@@ -29,6 +29,8 @@ import com.google.firebase.firestore.Query;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
+
 public class notesactivity extends AppCompatActivity {
 
     FloatingActionButton mcreatenotesfab;
@@ -54,7 +56,7 @@ public class notesactivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        getSupportActionBar().setTitle("All Notes");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("All Notes");
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
