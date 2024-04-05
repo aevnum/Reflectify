@@ -1,17 +1,23 @@
 package com.example.reflectify;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,15 +27,21 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class notesactivity extends AppCompatActivity {
 
@@ -71,11 +83,79 @@ public class notesactivity extends AppCompatActivity {
 
         noteAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusernotes) {
             @Override
-            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position, @NonNull firebasemodel firebasemodel) {
+            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
+
+                ImageView popupbutton = noteViewHolder.itemView.findViewById(R.id.menupopupbutton);
+
+                int colourcode = getRandomColor();
+                noteViewHolder.mnote.setBackgroundColor(noteViewHolder.itemView.getResources().getColor(colourcode,null));
+
 
                 noteViewHolder.notetitle.setText(firebasemodel.getTitle());
                 noteViewHolder.notecontent.setText(firebasemodel.getContent());
 
+                String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+
+                noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(v.getContext(), notedetails.class);
+
+                        intent.putExtra("title",firebasemodel.getTitle());
+                        intent.putExtra("content",firebasemodel.getContent());
+                        intent.putExtra("noteId",docId);
+
+                        v.getContext().startActivity(intent);
+
+                        //Toast.makeText(getApplicationContext(), "This is clicked",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                popupbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopupMenu popupMenu = new PopupMenu(v.getContext(),v);
+                        popupMenu.setGravity(Gravity.END);
+                        popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(@NonNull MenuItem item) {
+
+                                Intent intent = new Intent(v.getContext(), editnoteactivity.class);
+                                intent.putExtra("title",firebasemodel.getTitle());
+                                intent.putExtra("content",firebasemodel.getContent());
+                                intent.putExtra("noteId",docId);
+
+                                v.getContext().startActivity(intent);
+
+                                return false;
+                            }
+                        });
+
+                        popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                                //Toast.makeText(v.getContext(),"this note is deleted",Toast.LENGTH_SHORT).show();
+
+                                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(v.getContext(),"This note is deleted",Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(v.getContext(),"Failed to delete",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return false;
+                            }
+                        });
+
+                        popupMenu.show();
+                    }
+                });
             }
 
             @NonNull
@@ -140,7 +220,24 @@ public class notesactivity extends AppCompatActivity {
         super.onStop();
         if(noteAdapter!=null)
         {
-            noteAdapter.startListening();
+            noteAdapter.stopListening();
         }
+    }
+
+    private int getRandomColor()
+    {
+        List<Integer> colorcode = new ArrayList<>();
+        colorcode.add(R.color.cadet_gray);
+        colorcode.add(R.color.cambridge_blue);
+        colorcode.add(R.color.jordy_blue);
+        colorcode.add(R.color.air_superiority_blue);
+        colorcode.add(R.color.plum);
+        colorcode.add(R.color.salmon_pink);
+        colorcode.add(R.color.Cambridge_green);
+        colorcode.add(R.color.walnut_brown);
+
+        Random random = new Random();
+        int number = random.nextInt(colorcode.size());
+        return colorcode.get(number);
     }
 }
