@@ -29,7 +29,9 @@ public class forgotpassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
 
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mforgotpassword = findViewById(R.id.forgotpassword);
         mpasswordrecoverbutton = findViewById(R.id.passwordrecoverbutton);

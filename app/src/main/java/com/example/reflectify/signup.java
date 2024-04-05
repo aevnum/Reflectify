@@ -39,7 +39,9 @@ public class signup extends AppCompatActivity {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 //            return insets;});
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         msignupemail = findViewById(R.id.signupemail);
         msignuppassword = findViewById(R.id.signuppassword);
