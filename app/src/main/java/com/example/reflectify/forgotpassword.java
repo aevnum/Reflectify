@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class forgotpassword extends AppCompatActivity {
 
     private EditText mforgotpassword;
-    private Button mpasswordrecoverbutton;
+    private RelativeLayout mpasswordrecoverbutton;
     private TextView mgobacktologin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class forgotpassword extends AppCompatActivity {
 
         mforgotpassword = findViewById(R.id.forgotpassword);
         mpasswordrecoverbutton = findViewById(R.id.passwordrecoverbutton);
-
+        mgobacktologin = findViewById(R.id.gobacktologin);
         mgobacktologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
