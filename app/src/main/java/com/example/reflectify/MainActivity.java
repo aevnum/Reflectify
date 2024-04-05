@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if(firebaseUser!=null)
         {
             finish();
-            startActivity(new Intent(MainActivity.this, notesActivity.class));
+            startActivity(new Intent(MainActivity.this, notesactivity.class));
         }
 
         mgotosignup.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(getApplicationContext(), "Logged in.", Toast.LENGTH_SHORT).show();
             finish();
-            startActivity(new Intent(MainActivity.this, notesActivity.class));
+            startActivity(new Intent(MainActivity.this, notesactivity.class));
         }
         else
         {
