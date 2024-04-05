@@ -24,7 +24,7 @@ public class firebasemodel {
     {
         return content;
     }
-    public void setContent()
+    public void setContent(String content)
     {
         this.content = content;
     }
