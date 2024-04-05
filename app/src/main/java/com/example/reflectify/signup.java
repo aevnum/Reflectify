@@ -9,18 +9,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.w3c.dom.Text;
 
-public class signup extends AppCompatActivity implements View.OnClickListener {
+public class signup extends AppCompatActivity {
 
     private EditText msignupemail, msignuppassword;
     private RelativeLayout msignup;
     private TextView mgotologin;
+
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +45,8 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         msignuppassword = findViewById(R.id.signuppassword);
         msignup = findViewById(R.id.signup);
         mgotologin = findViewById(R.id.gotologin);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         mgotologin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,20 +69,52 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                 }
                 else if(password.length()<7)
                 {
-                    Toast.makeText(getApplicationContext(), "Password shouold be more than 7 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password should be more than 7 characters", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     //register to firebase
+
+                    firebaseAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(getApplicationContext(),"Registeration successful",Toast.LENGTH_SHORT).show();
+                                sendEmailVerification();
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(),"Registeration unsuccessful",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
 
             }
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(signup.this, MainActivity.class);
-        startActivity(intent);
+    private void sendEmailVerification()
+    {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(getApplicationContext(),"Verification email sent, verify and login again",Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(signup.this, MainActivity.class));
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Failed to send verification mail",Toast.LENGTH_SHORT).show();
+        }
     }
+
+
 }
