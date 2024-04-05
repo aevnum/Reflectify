@@ -19,6 +19,7 @@
             android:paddingTop="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-medium"
             android:textColor="@color/walnut_brown"
             android:id="@+id/edittitleofnote"/>
 
@@ -32,6 +33,7 @@
         android:gravity="top|left"
         android:hint="Enter note content here"
         android:layout_below="@+id/toolbarofeditnote"
+        android:fontFamily="sans-serif-condensed-medium"
         android:padding="15dp"
         android:id="@+id/editcontentofnote">
 
