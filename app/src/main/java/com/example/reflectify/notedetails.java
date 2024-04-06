@@ -31,7 +31,6 @@ public class notedetails extends AppCompatActivity {
         mtitleofnotedetail = findViewById(R.id.titleofnotedetail);
         mcontentofnotedetail = findViewById(R.id.contentofnotedetail);
         mgotoeditnote = findViewById(R.id.gotoeditnote);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Toolbar toolbar = findViewById(R.id.toolbarofnotedetail);
         setSupportActionBar(toolbar);
@@ -60,7 +59,7 @@ public class notedetails extends AppCompatActivity {
 
         if(item.getItemId()==android.R.id.home)
         {
-            onBackPressed();
+            startActivity(new Intent(notedetails.this, notesactivity.class));
         }
 
         return super.onOptionsItemSelected(item);
